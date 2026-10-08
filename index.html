@@ -84,6 +84,97 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: background 0.15s, color 0.15s;
 }
 .nav-links a:hover { background: var(--faint); color: var(--hof); }
+
+/* ── HAMBURGER MENU ── */
+.nav-burger {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  color: var(--hof);
+  transition: background 0.15s;
+}
+.nav-burger:hover { background: var(--faint); }
+.nav-burger svg { display: block; }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+.mobile-menu.open { display: block; }
+.mobile-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+.mobile-menu-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(280px, 85vw);
+  background: var(--white);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 32px rgba(0,0,0,0.18);
+}
+.mobile-menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 16px;
+  border-bottom: 1px solid var(--bebe);
+}
+.mobile-menu-header span {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--hof);
+  letter-spacing: 0.02em;
+}
+.mobile-menu-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  color: var(--foggy);
+  transition: background 0.15s, color 0.15s;
+}
+.mobile-menu-close:hover { background: var(--faint); color: var(--hof); }
+.mobile-menu-links {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  flex: 1;
+}
+.mobile-menu-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 22px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--foggy);
+  transition: background 0.15s, color 0.15s;
+  text-decoration: none;
+}
+.mobile-menu-links a:hover { background: var(--faint); color: var(--hof); }
+.mobile-menu-links a.nav-cta-mobile {
+  margin: 12px 22px 0;
+  justify-content: center;
+  background: var(--brand);
+  color: var(--white);
+  border-radius: 9999px;
+  padding: 13px 20px;
+}
+.mobile-menu-links a.nav-cta-mobile:hover { background: var(--brand-dark, #0a4f8f); color: var(--white); }
+
 .nav-cta {
   padding: 10px 20px;
   background: var(--brand);
@@ -105,7 +196,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 80px 24px 100px;
+  padding: 80px 24px 48px;
 }
 
 /* Animated decorative circles */
@@ -222,48 +313,54 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* ── SERVICE TABS ── */
 .svc-tabs-wrap {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
+  overflow-x: auto;
+  touch-action: pan-x;
+  scrollbar-width: none;
+  background: var(--white);
+  border-radius: 16px 16px 0 0;
+  border-bottom: 1.5px solid var(--bebe);
 }
+.svc-tabs-wrap::-webkit-scrollbar { display: none; }
 .svc-tabs {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: center;
+  gap: 0;
+  padding: 0 4px;
+  width: max-content;
+  min-width: 100%;
 }
 .svc-tab {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 9999px;
-  font-size: 13px;
+  gap: 5px;
+  padding: 14px 20px 10px;
+  border-radius: 0;
+  font-size: 11px;
   font-weight: 500;
-  color: rgba(255,255,255,.75);
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.15);
+  color: var(--hof);
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
   cursor: pointer;
-  transition: all 0.18s;
+  transition: color 0.18s, border-color 0.18s;
   white-space: nowrap;
 }
-.svc-tab svg { width: 16px; height: 16px; flex-shrink: 0; }
-.svc-tab:hover { background: rgba(255,255,255,.18); color: #fff; }
+.svc-tab svg { width: 26px; height: 26px; flex-shrink: 0; color: inherit; }
+.svc-tab:hover { color: var(--navy); }
 .svc-tab.active {
-  background: var(--brand);
-  border-color: var(--brand);
-  color: var(--white);
-  font-weight: 600;
+  color: var(--brand-dark, #d97706);
+  border-bottom-color: var(--brand);
+  font-weight: 700;
 }
 
 /* ── SEARCH BAR ── */
 .search-shell {
   background: var(--white);
-  border-radius: 20px;
+  border-radius: 16px;
   box-shadow: var(--bar-shadow);
   overflow: hidden;
   width: 100%;
-  max-width: 860px;
+  max-width: 900px;
   margin: 0 auto;
 }
 .search-config {
@@ -723,9 +820,64 @@ footer ul li a:hover { color: #fff; }
 .footer-bottom p { font-size: 12px; }
 
 
+
+/* ── FLOATING COTIZAR BUTTON ── */
+.float-cta {
+  position: fixed;
+  bottom: 28px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--brand);
+  color: var(--navy);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  border: none;
+  border-radius: 50px;
+  padding: 14px 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.28), 0 1px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.18s, box-shadow 0.18s, background 0.18s;
+  animation: float-pulse 3s ease-in-out infinite;
+}
+.float-cta:hover {
+  background: var(--brand-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+}
+.float-cta svg { width: 20px; height: 20px; flex-shrink: 0; }
+@keyframes float-pulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(0,0,0,0.28), 0 0 0 0 rgba(var(--brand-rgb,245,158,11),.4); }
+  50% { box-shadow: 0 4px 20px rgba(0,0,0,0.28), 0 0 0 8px rgba(var(--brand-rgb,245,158,11),0); }
+}
+  /* ── TABLET / PORTRAIT ANCHO (768–1200px) ── */
+  @media (max-width: 1200px) {
+    .hero { min-height: 60vh; }
+  }
+
+  @media (max-width: 640px) {
+  .float-cta { bottom: 20px; right: 16px; padding: 12px 18px; font-size: 14px; }
+}
+
 .footer-social { display: flex; gap: 16px; align-items: center; }
 .footer-social-link { color: rgba(255,255,255,.6); font-size: 12px; text-decoration: none; transition: color 0.2s; }
 .footer-social-link:hover { color: var(--brand); }
+
+
+/* ── SEARCH BAND (outside hero) ── */
+.search-band {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 24px;
+  background: var(--faint);
+}
+@media (max-width: 640px) {
+  .search-band { padding: 0 10px 16px; }
+}
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
@@ -733,19 +885,84 @@ footer ul li a:hover { color: #fff; }
   .footer-brand { max-width: 100%; }
 }
 @media (max-width: 640px) {
+  /* ── NAV ── */
   .nav-links { display: none; }
-  .hero { min-height: 480px; padding: 60px 16px 90px; }
+  .nav-burger { display: flex; align-items: center; justify-content: center; }
+
+  /* ── HERO: compact for portrait ── */
+  .hero { min-height: 220px; padding: 36px 16px 28px; }
+  .hero-content h1 { font-size: 1.55rem; }
+  .hero-content p { font-size: 14px; }
   .hc1, .hc2, .hc3, .hc6 { display: none; }
-  .hero-sun { top: 24px; right: 24px; width: 60px; height: 60px; }
-  .search-row { flex-direction: column; }
-  .sf { border-right: none; border-bottom: 1px solid var(--bebe); }
-  .sf:last-child { border-bottom: none; }
-  .search-btn { margin: 12px; width: calc(100% - 24px); }
-  .svc-tab span { display: none; }
-  .svc-tab { padding: 8px 10px; }
-  .footer-inner { grid-template-columns: 1fr; }
-  .section { padding: 40px 16px; }
-  .pkg-grid { grid-template-columns: 1fr; }
+  .hero-sun { top: 16px; right: 16px; width: 48px; height: 48px; }
+
+  /* ── SEARCH BAND ── */
+  .search-band { padding: 0 10px 16px; }
+
+  /* ── SEARCH TABS ── */
+  .svc-tab { padding: 10px 12px 7px; font-size: 10px; gap: 3px; }
+  .svc-tab svg { width: 20px; height: 20px; }
+
+  /* ── SEARCH FORM: 2-col compact grid ── */
+  .search-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .sf { padding: 10px 14px; border-right: 1px solid var(--bebe); border-bottom: 1px solid var(--bebe); min-height: 0; }
+  .sf:nth-child(2n) { border-right: none; }
+  .sf:last-of-type:nth-child(odd) { grid-column: 1 / -1; border-right: none; }
+  .sf:only-of-type { grid-column: 1 / -1; border-right: none; }
+  .search-btn { grid-column: 1 / -1; margin: 10px; width: calc(100% - 20px); }
+
+  /* ── SECTIONS ── */
+  .section { padding: 36px 16px; }
+  .section-hd { flex-direction: column; align-items: flex-start; gap: 8px; margin-bottom: 20px; }
+  .section-hd h2 { font-size: 1.35rem; }
+
+  /* ── PAQUETES ── */
+  .pkg-grid { grid-template-columns: 1fr; gap: 16px; }
+  .card-img { height: 180px; }
+  .card-body { padding: 14px 16px 16px; }
+  .filter-bar { gap: 8px; flex-wrap: wrap; }
+  .chip { padding: 7px 14px; font-size: 13px; }
+
+  /* ── DESTINOS ── */
+  .dest-strip {
+    display: flex;
+    overflow-x: auto;
+    touch-action: pan-x;
+    scrollbar-width: none;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+  .dest-strip::-webkit-scrollbar { display: none; }
+  .dest-tile { min-width: 130px; flex-shrink: 0; }
+  .dest-tile-label { font-size: 12px; }
+
+  /* ── NOSOTROS (why cards) ── */
+  .why-grid { gap: 12px; }
+  .why-card { padding: 20px 18px; }
+  .why-icon { width: 44px; height: 44px; margin-bottom: 12px; }
+
+  /* ── TESTIMONIOS ── */
+  .testi-grid { gap: 12px; }
+  .testi-card { padding: 18px; }
+
+  /* ── COTIZAR (CTA band) ── */
+  .cta-band { padding: 40px 20px; }
+  .cta-band h2 { font-size: 1.5rem; }
+  .cta-band p { font-size: 15px; margin-bottom: 24px; }
+  .cta-actions { flex-direction: column; align-items: center; gap: 10px; }
+  .cta-wa, .cta-email { width: 100%; max-width: 300px; justify-content: center; padding: 14px 20px; }
+  .contact-details { flex-direction: column; gap: 10px; align-items: center; }
+  .cta-form { padding: 20px 16px; }
+
+  /* ── FOOTER ── */
+  footer { padding: 36px 20px 28px; }
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
+  }
+  /* Brand + Servicios span full width; Destinos/Empresa form the 2-col row */
+  .footer-brand { grid-column: 1 / -1; max-width: 100%; }
+  .footer-inner > div:nth-child(2) { grid-column: 1 / -1; }
 }
 
 /* -- CTA FORM -- */
@@ -807,8 +1024,45 @@ footer ul li a:hover { color: #fff; }
       <a href="#nosotros">Nosotros</a>
       <a href="#contacto" class="nav-cta">Cotizar</a>
     </div>
+    <button class="nav-burger" aria-label="Menú" onclick="document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow='hidden';">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="17" x2="21" y2="17"/>
+      </svg>
+    </button>
   </div>
 </nav>
+
+<!-- ── MOBILE MENU ── -->
+<div id="mobileMenu" class="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+  <div class="mobile-menu-backdrop" onclick="document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow='';"></div>
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <span>Menú</span>
+      <button class="mobile-menu-close" aria-label="Cerrar menú" onclick="document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow='';">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="mobile-menu-links">
+      <a href="#paquetes" onclick="document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow='';">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/><path d="M8 7V5a2 2 0 0 0-4 0v2"/></svg>
+        Paquetes
+      </a>
+      <a href="#destinos" onclick="document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow='';">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>
+        Destinos
+      </a>
+      <a href="#nosotros" onclick="document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow='';">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Nosotros
+      </a>
+      <a href="#contacto" class="nav-cta-mobile" onclick="document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow='';">
+        Cotizar ahora
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- ── HERO ── -->
 <section class="hero">
@@ -825,7 +1079,10 @@ footer ul li a:hover { color: #fff; }
     <h1>Tu aventura en el <span>Caribe Mexicano</span> comienza aquí</h1>
     <p>Paquetes, traslados y experiencias únicas diseñadas para que disfrutes cada momento de tu viaje.</p>
 
-    <!-- Service type tabs -->
+  </div><!-- /hero-content -->
+</section>
+<div class="search-band">
+<div class="search-shell">
     <div class="svc-tabs-wrap">
       <div class="svc-tabs" role="tablist">
         <button class="svc-tab active" data-svc="paquetes" onclick="setSvc(this)" role="tab">
@@ -862,9 +1119,6 @@ footer ul li a:hover { color: #fff; }
         </button>
       </div>
     </div>
-
-    <!-- Adaptive search bar -->
-    <div class="search-shell">
 
       <!-- Paquetes -->
       <div id="sb-paquetes" class="search-config visible">
@@ -1071,8 +1325,7 @@ footer ul li a:hover { color: #fff; }
       </div>
 
     </div><!-- /search-shell -->
-  </div><!-- /hero-content -->
-</section>
+</div>
 
 <!-- ── PACKAGES SECTION ── -->
 <section class="section" id="paquetes">
